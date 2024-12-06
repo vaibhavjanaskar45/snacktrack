@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home | SnackTrack</title>
+    <link rel="icon" href="path/to/your/favicon.png" type="image/png"> <!-- Favicon -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css">
+    <style>
+        /* Full-screen background video */
+        video {
+            width: 100%;
+            height: 100vh;
+            object-fit: cover;
+            z-index: -1;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        /* Overlay for the video */
+        .content-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.4); /* Semi-transparent overlay */
+            z-index: 0;
+        }
+
+        /* Hero text styles */
+        .hero-text {
+            position: absolute;
+            z-index: 1;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            color: white;
+            font-size: 250%;
+            font-weight: bold;
+        }
+
+        /* Navbar */
+        .navbar {
+            z-index: 9999;
+        }
+
+        /* Body background */
+        body {
+            background-color: black;
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            border: none;
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
+		.text-warning{
+			text-decoration: none;
+		}
+    </style>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg bg-body-tertiary fixed-top" data-bs-theme="dark">
+        <div class="container-fluid">
+            <a class="navbar-brand me-5" href="/">
+                <img src="fast-food.png" alt="SnackTrack Logo" width="34px" height="30px" class="d-inline-block align-text-top">
+                SnackTrack
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item me-5">
+                        <a class="nav-link active" href="/">Home</a>
+                    </li>
+                    <li class="nav-item me-5">
+                        <a class="nav-link" href="/aboutUs">About Us</a>
+                    </li>
+                    <li class="nav-item me-5">
+                        <a class="nav-link" href="/products">Products</a>
+                    </li>
+                    <li class="nav-item me-5">
+                        <a class="nav-link" href="/contactUs">Contact Us</a>
+                    </li>
+                </ul>
+                <form class="d-flex" role="search">
+                    <!-- Conditionally Render Login/Logout Button -->
+                    <div th:if="${user != null}">
+                        <a href="/logout" class="btn btn-danger">Logout</a>
+                    </div>
+                    <div th:unless="${user != null}">
+                        <a href="/login" class="btn btn-success">Login</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Background Video with Overlay -->
+    <div>
+        <video autoplay loop muted>
+            <source src="bgvid.mp4" type="video/mp4">
+        </video>
+        <div class="content-overlay"></div> <!-- Dark overlay for improved text visibility -->
+
+        <!-- Hero Section with Conditional Content -->
+        <div class="hero-text">
+			<h1>Welcome to SnackTrack!</h1>
+			 <h2>Your favourite food, now just a click away</h2><br>
+            <div th:if="${user != null}">
+                <h1>Welcome, <span th:text="${user.name}">User</span>!</h1>
+                <a href="/products" class="btn btn-primary mt-4">Browse Products ></a>
+            </div>
+            <div th:unless="${user != null}">
+                <h2>Please <a href="/login" class="text-warning">Login</a> to continue!</h2>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

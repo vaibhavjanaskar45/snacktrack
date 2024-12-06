@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Orders</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+	<!-- Navbar -->
+	   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+	       <div class="container-fluid">
+	           <a class="navbar-brand" href="/admin/dashboard">Admin Panel</a>
+	       </div>
+	   </nav>
+    <div class="container mt-5">
+        <h1 class="text-center mb-4">Manage Orders</h1>
+
+        <div class="table-responsive">
+            <table class="table table-bordered table-striped align-middle text-center">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Order ID</th>
+                        <th>Details</th>
+                        <th>Date</th>
+                        <th>Total Price</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="order : ${orders}">
+                        <td th:text="${order.id}"></td>
+                        <td th:text="${order.orderItems}"></td>
+                        <td th:text="${order.orderDate}"></td>
+                        <td th:text="${order.totalPrice}"></td>
+                        <td>
+                            <form th:action="@{'/admin/orders/update/' + ${order.id}}" method="post" class="d-flex justify-content-center align-items-center gap-2">
+                                <select name="orderStatus" class="form-select form-select-sm w-auto">
+                                    <option value="Pending" th:selected="${order.orderStatus == 'Pending'}">Pending</option>
+                                    <option value="Completed" th:selected="${order.orderStatus == 'Completed'}">Completed</option>
+                                </select>
+                                <button type="submit" class="btn btn-success btn-sm">Update</button>
+                            </form>
+                        </td>
+                        <td>
+                            <form th:action="@{/admin/orders/{id}/delete(id=${order.id})}" method="post">
+                                <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+		<a href="/admin/dashboard" class="btn btn-secondary">Back to Dashboard</a>
+    </div>
+
+    <footer class="text-center mt-4">
+        <p>&copy; 2024 Admin Panel. All Rights Reserved.</p>
+    </footer>
+</body>
+</html>

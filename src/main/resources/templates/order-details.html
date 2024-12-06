@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Order Details | SnackTrack</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            margin-top: 50px;
+        }
+
+        .card {
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            padding: 20px;
+            background-color: white;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .order-details {
+            margin-top: 20px;
+        }
+
+        .order-details p {
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+
+        .btn-custom {
+            padding: 10px 15px;
+            font-size: 1rem;
+            border-radius: 5px;
+            background-color: #4CAF50;
+            color: white;
+            text-decoration: none;
+        }
+
+        .btn-custom:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Order Details</h1>
+
+    <!-- Order Details Card -->
+    <div class="card">
+        <div class="order-details">
+            <p><strong>Order ID:</strong> <span th:text="${order.id}"></span></p>
+            <p><strong>Order Status:</strong> <span th:text="${order.orderStatus}"></span></p>
+            <p><strong>Total Price:</strong> RS. <span th:text="${order.totalPrice}"></span></p>
+        </div>
+
+        <!-- Back Button -->
+        <div class="mt-4">
+            <a href="/orders" class="btn btn-custom">Back to Orders</a>
+        </div>
+    </div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>
